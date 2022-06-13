@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useCallback } from "react";
+import users from "./user-database";
+import LogInForm from "./components/LogInForm";
 
 function App() {
+  const [activeUser, setActiveUser] = useState("");
+  const [error, setError] = useState("");
+
+  const logIn = useCallback(
+    ({ username, password }) => {
+      const userExists = users.find(
+        (user) => user.username === username && user.password === password
+      );
+      console.log(userExists);
+      if (userExists) {
+        setActiveUser(username);
+
+        // Please read - In case it was a trick question, I didn't log the password as it would be insecure to do so, however all we would have to do is add ${password} to the template string.
+        console.log(`user ${username} has logged in`);
+      } else {
+        console.log("invalid input");
+        setActiveUser("");
+        setError("Invalid input, please try again!");
+      }
+    },
+    [setError]
+  );
+
+  const logOut = () => {
+    console.log("user logged out");
+    setError("");
+    setActiveUser("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {activeUser ? (
+        <div className="welcome">
+          <h3>Welcome!</h3>
+          <button className="logout-button" onClick={logOut}>
+            Logout
+          </button>
+        </div>
+      ) : (
+        <LogInForm
+          login={logIn}
+          err={error}
+          // handleErrMessage={handleErrMessage}
+        />
+      )}
     </div>
   );
 }
