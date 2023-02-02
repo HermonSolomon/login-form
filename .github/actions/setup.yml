@@ -1,0 +1,20 @@
+name: 'Setup Environment'
+description: 'checkout codebase, install pack and build'
+inputs:
+  build:
+    default: 'false'
+    required: false
+    description: run build if not cached
+  export:
+    default: 'false'
+    required: false
+    description: run export if not cached
+
+  runs:
+    using: composite
+    steps:
+      - name: Create .npmrc
+      shell: bash
+      
+
+      
