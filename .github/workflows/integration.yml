@@ -22,10 +22,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - npm: npm i
+    - run: npm i
     - run: npm run build
 
-  unit-tests:
+  Unit-tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,24 +38,23 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
-    - npm: npm i
+    - run: npm i
     - run: npm test
 
-  # linting: 
-  #     name: Linting
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #       - name: Check out Git repository
-  #         uses: actions/checkout@v3
-  #         with:
-  #           fetch-depth: 0
-  #       - uses: actions/setup
-  #     with:
-  #       eslint: true
-  #       node-version: ${{ matrix.node-version }}
-  #       cache: 'npm'
-  #   - npm: npm i
-  #   - run: npm lint
+  Lint: 
+      name: Linting
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check out Git repository
+          uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+        - uses: actions/setup
+      with:
+        eslint: true
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm i
+    - run: npm lint
 
 
