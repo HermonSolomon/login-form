@@ -8,7 +8,6 @@
      cy.get('#email').type("test@test.com")
      cy.get('#password').type("test123")
      cy.get("#submit").click()
-     cy.get('form').submit()
-
+     cy.get('form').submit();
    })
   })
