@@ -1,47 +1,3 @@
-# name: Node.js CI
-
-# on: push
-
-# jobs:
-#   tests:
-#     runs-on: ubuntu-latest
-
-#     strategy:
-#       matrix:
-#         node-version: [16.x]
-
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: ${{ matrix.node-version }}
-#       - name: npm install
-#         run: npm ci
-#       - name: tests
-#         run: npm test
-
-#     linting: 
-#       name: linting
-#       runs-on: ubuntu-latest
-#       steps:
-#         - uses: actions/checkout@v2
-#           with:
-#             fetch-depth: 0
-#         - uses: ./.github/actions/setup
-#         -runs: yarn lint --max-warning=0
-
-#     build: 
-#       name: Build React app
-#       needs: [install-dependencies, linting]
-#       steps:
-#         - uses: actions/checkout@v2
-#           with:
-#             fetch-depth: 0
-#         - uses: ././github/actions/setup
-#           with:
-#             build: true
-
 
 name: Integration
 
@@ -58,8 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [14.x, 16.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -78,8 +33,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [14.x, 16.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -96,9 +50,15 @@ jobs:
       name: linting
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v3
+        - name: Check out Git repository
+          uses: actions/checkout@v3
           with:
             fetch-depth: 0
-        - uses: ./.github/actions/setup
-        -runs: yarn lint --max-warning=0
+        - uses: actions/setup
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - npm: npm i
+    - run: npm test  
 
