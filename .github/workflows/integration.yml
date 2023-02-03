@@ -9,9 +9,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x, 16.x]
@@ -28,9 +26,7 @@ jobs:
     - run: npm run build
 
   unit-tests:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x, 16.x]
@@ -47,7 +43,7 @@ jobs:
     - run: npm test
 
   linting: 
-      name: linting
+      name: Linting
       runs-on: ubuntu-latest
       steps:
         - name: Check out Git repository
@@ -56,9 +52,8 @@ jobs:
             fetch-depth: 0
         - uses: actions/setup
       with:
+        eslint: true
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - npm: npm i
-    - run: npm test  
 
