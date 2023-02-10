@@ -14,7 +14,7 @@ function App() {
         (user) => user.username === username && user.password === password
       );
       // console.log(userExists);
-      console.log(test)
+      console.log('test')
 
       if (userExists) {
         setActiveUser(username);
