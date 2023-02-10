@@ -14,10 +14,11 @@ function App() {
         (user) => user.username === username && user.password === password
       );
       // console.log(userExists);
+      console.log('test')
+
       if (userExists) {
         setActiveUser(username);
 
-        // Please read - In case it was a trick question, I didn't log the password as it would be insecure to do so, however all we would have to do is add ${password} to the template string.
         console.log(`user ${username} has logged in`);
       } else {
         console.log("invalid input");
