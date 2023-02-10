@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 import { useState, useCallback } from "react";
 import users from "./user-database";
@@ -12,7 +13,7 @@ function App() {
       const userExists = users.find(
         (user) => user.username === username && user.password === password
       );
-      console.log(userExists);
+      // console.log(userExists);
       if (userExists) {
         setActiveUser(username);
 
