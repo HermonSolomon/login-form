@@ -13,7 +13,8 @@ function App() {
       const userExists = users.find(
         (user) => user.username === username && user.password === password
       );
-      console.log(userExists);
+      // console.log(userExists);
+      console.log(test)
 
       if (userExists) {
         setActiveUser(username);
